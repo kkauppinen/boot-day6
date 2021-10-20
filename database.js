@@ -1,8 +1,5 @@
 const mysql = require("mysql");
-const connection = mysql.createPool({
-  host: "127.0.0.1",
-  user: "root",
-  password: "root",
-  database: "library",
-});
+const dotenv = require('dotenv');
+dotenv.config();
+const connection = mysql.createConnection(process.env.database);
 module.exports = connection;
