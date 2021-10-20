@@ -7,7 +7,13 @@ var bookRouter = require("./routes/book");
 var customerRouter = require("./routes/customer");
 var borrowRouter = require("./routes/borrow");
 
+const helmet = require("helmet");
+const cors = require("cors");
+
 var app = express();
+
+app.use(helmet());
+app.use(cors());
 
 // Authorization
 const basicAuth = require("express-basic-auth");
@@ -31,12 +37,6 @@ app.use(
     return callback(null, false);
   }
 }
-
-const helmet = require("helmet");
-const cors = require("cors");
-
-app.use(helmet());
-app.use(cors());
 
 app.use(logger("dev"));
 app.use(express.json());

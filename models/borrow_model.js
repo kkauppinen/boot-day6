@@ -1,34 +1,28 @@
 const db = require("../database");
 
-const borrow = {
+const book = {
   getById: function (id, callback) {
-    return db.query("select * from borrow where id_borrow=?", [id], callback);
+    return db.query("select * from book where id_book=?", [id], callback);
   },
   getAll: function (callback) {
-    return db.query("select * from borrow", callback);
+    return db.query("select * from book", callback);
   },
-  add: function (borrow, callback) {
+  add: function (book, callback) {
     return db.query(
-      "insert into borrow (borrow_date,return_date,id_borrow,id_customer) values(?,?,?,?)",
-      [borrow.borrow_date, borrow.return_date, borrow.id_borrow, borrow.id_customer],
+      "insert into book (borrow_date,return_date,id_book,id_customer) values(?,?,?,?)",
+      [book.borrow_date, book.return_date, book.id_book, book.id_customer],
       callback
     );
   },
   delete: function (id, callback) {
-    return db.query("delete from borrow where id_borrow=?", [id], callback);
+    return db.query("delete from book where id_book=?", [id], callback);
   },
-  update: function (id, borrow, callback) {
+  update: function (id, book, callback) {
     return db.query(
-      "update borrow set borrow_date=?,return_date=?, id_borrow=?, id_customer=? where id_borrow=?",
-      [
-        borrow.borrow_date,
-        borrow.return_date,
-        borrow.id_borrow,
-        borrow.id_customer,
-        id,
-      ],
+      "update book set borrow_date=?,return_date=?, id_book=?, id_customer=? where id_book=?",
+      [book.borrow_date, book.return_date, book.id_book, borrow.id_customer, id],
       callback
     );
   },
 };
-module.exports = borrow;
+module.exports = book;
