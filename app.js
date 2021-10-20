@@ -8,6 +8,26 @@ var customerRouter = require("./routes/customer");
 
 var app = express();
 
+// Authorization
+const basicAuth = require("express-basic-auth");
+// First auth method
+//app.use(basicAuth({ users: { admin: "1234" } }));
+
+// Second auth method
+app.use(
+  basicAuth({
+    authorizer: myAuthorizer,
+    authorizeAsync: true,
+  })
+);
+ function myAuthorizer(username, password, callback) {
+  if (username === "admin" && password === "testi") {
+    return callback(null, true);
+  } else {
+    return callback(null, false);
+  }
+}
+
 const helmet = require("helmet");
 const cors = require("cors");
 
