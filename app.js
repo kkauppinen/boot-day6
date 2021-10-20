@@ -13,7 +13,10 @@ const basicAuth = require("express-basic-auth");
 // First auth method
 //app.use(basicAuth({ users: { admin: "1234" } }));
 
-// Second auth method
+// Second auth method, uses variables
+const dotenv = require('dotenv');
+dotenv.config();
+
 app.use(
   basicAuth({
     authorizer: myAuthorizer,
@@ -21,7 +24,7 @@ app.use(
   })
 );
  function myAuthorizer(username, password, callback) {
-  if (username === "admin" && password === "testi") {
+  if (username === process.env.auth_user && password === process.env.auth_pass) {
     return callback(null, true);
   } else {
     return callback(null, false);
